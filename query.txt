@@ -1,0 +1,38 @@
+#TODO
+# 1. Перенести данные из экселя в sql
+
+CREATE TABLE users (
+    user_id integer PRIMARY KEY,
+    login text NOT NULL UNIQUE,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    email text NOT NULL UNIQUE,
+    phone text NOT NULL UNIQUE,
+    position text NOT NULL,
+    department text NOT NULL,
+    company text NOT NULL
+);
+
+CREATE TABLE projects (
+    project_id integer PRIMARY KEY,
+    name text NOT NULL,
+    status text NOT NULL,
+    start_date NOT NULL,
+    comment NOT NULL
+);
+
+CREATE TABLE user_projects (
+    user_id integer,
+    project_id integer,
+    PRIMARY KEY (user_id, project_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    ON DELETE CASCADE ON UPDATE NO ACTION, 
+    FOREIGN KEY (project_id) REFERENCES projects (project_id)
+    ON DELETE CASCADE ON UPDATE NO ACTION
+);
+
+INSERT INTO users (login, first_name, last_name, email, phone, position, department, company)
+VALUES
+    ("leontyevdv", "Данила", "Леонтьев", "leontyevdv@rusagromaslo.com", "5695", "Специалист по аналитике производства", "Отдел аналитики", "ОАО Жировой комбинат" )
+    ;
+

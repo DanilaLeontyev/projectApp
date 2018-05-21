@@ -8,6 +8,8 @@ let db = new sqlite3.Database('./db/test.db', err => {
 });
 
 db.serialize(() => {
+    // TODO: Написать запрос к текущим данным
+
     db.each(`SELECT userId as id, Name as name from users`, (err, row) => {
         if (err) {
             return console.error(err.message);
