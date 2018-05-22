@@ -8,15 +8,18 @@ let db = new sqlite3.Database('./db/test.db', err => {
 });
 
 db.serialize(() => {
-    // TODO: Написать запрос к текущим данным
+    // TODO: Отправить данные на сервер
 
-    db.each(`SELECT userId as id, Name as name from users`, (err, row) => {
-        if (err) {
-            return console.error(err.message);
+    db.each(
+        `SELECT user_id, first_name, last_name, email FROM users`,
+        (err, row) => {
+            if (err) {
+                return console.error(err.message);
+            }
+
+            console.log(row.user_id + '\t' + row.first_name);
         }
-
-        console.log(row.id + '\t' + row.name);
-    });
+    );
 });
 
 db.close(err => {
