@@ -51,17 +51,36 @@ app.get('/users', (req, res) => {
 
 app.get('/users/:id', (req, res) => {
     let user = users.find(user => {
-        //TODO: Выводить отдельные html странички для кажого пользователя
-
         return user.id === Number(req.params.id);
     });
+
     res.send(user);
 });
 
 app.post('/users', (req, res) => {
-    console.log(req.body);
-    res.send('post data', req.body);
+    let user = {
+        id: Date.now(),
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email
+    };
+    users.push(user);
+    console.log(users);
+    res.send(user);
 });
+
+app.put('/users/:id', (req, res) => {
+    var user = users.find(function(user) {
+        return (users.id = Number(req.params.id));
+    });
+    user.first_name = req.body.first_name;
+    user.last_name = req.body.last_name;
+    user.email = req.body.email;
+
+    console.log(user);
+    res.send(user);
+});
+
 app.listen(3000, () => {
     console.log('Server is listenint on port 3000');
 });
